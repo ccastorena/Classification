@@ -9,8 +9,8 @@ def getData(n, p):
     n = 1000; # number of observations
     p = 2; # number of explanatory variables
 
-    velocityMeans = np.array([70, 150])
-    accelerationMeans = np.array([150, 70])
+    velocityMeans = np.array([70, 1000])
+    accelerationMeans = np.array([70, 1000])
 
     data = np.empty([n, p + 1])
 
@@ -27,6 +27,11 @@ def leastSquaresSoln(X, p):
     pinv = np.linalg.pinv(x)
     return np.dot(pinv, y)
 
+def fishersLinearDiscriminant(data):
+    
+
+
+
 if __name__ == "__main__":
 
     n = 1000; # number of observations
@@ -34,10 +39,11 @@ if __name__ == "__main__":
     data = getData(n, p)
     
     betaLS = leastSquaresSoln(data, p)
-    print betaLS
     
- 
+    x = np.sort(data[:,1])
+    y = (0.5 - x*betaLS[1])/betaLS[0]
+
     matplotlib.pyplot.scatter(data[:, 1], data[:, 2], c = data[:, 0])
-    
+    matplotlib.pyplot.plot(x, y)
     matplotlib.pyplot.show()
 
